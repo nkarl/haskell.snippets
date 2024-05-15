@@ -16,14 +16,12 @@ data Result
   deriving (Show)
 
 run :: Int -> IO ()
-run x =
-  go 1 x
+run n = go n 1
  where
-  go acc 1 =
+  go 0 _ = pure ()
+  go x acc = do
     print $ Result{iter = acc, result = fizzle acc}
-  go acc n = do
-    print $ Result{iter = acc, result = fizzle acc}
-    go (acc + 1) (n - 1)
+    go (x - 1) (acc + 1)
 
 test :: IO ()
 test = do
