@@ -63,6 +63,7 @@ executable haskell-snippets
     -- Modules included in this executable, other than Main.
     other-modules:    Touch.Grass
                       Kick.Rock
+                      FizzBuzz.FizzBuzz
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
