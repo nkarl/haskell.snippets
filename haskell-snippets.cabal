@@ -64,6 +64,7 @@ executable haskell-snippets
     other-modules:    Touch.Grass
                       Kick.Rock
                       FizzBuzz.FizzBuzz
+                      Elysia
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

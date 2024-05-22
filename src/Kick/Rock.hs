@@ -1,11 +1,11 @@
 module Kick.Rock where
 
 import Text.Pretty.Simple
-import Prelude
+import Prelude hiding (Right)
 
 data Where = Here | There deriving (Show)
 data Which = Rock | Dirt deriving (Show)
-data Kick = Don't | Cry | Where Where deriving (Show)
+data Kick = Don't | Cry | Right Where deriving (Show)
 
 data Something = Something
   { which_is :: Which
@@ -17,13 +17,14 @@ class Kickable where
   kick :: Maybe Something -> Maybe Kick
 
 instance Kickable where
-  kick something = case something of
-    Nothing -> Just Cry
-    Just (Something{which_is, where_is}) -> case where_is of
-      There -> Nothing
-      Here -> case which_is of
-        Rock -> Just $ Where There
-        Dirt -> Just Don't
+  kick = \something ->
+    case something of
+      Nothing -> Just Cry
+      Just (Something{which_is, where_is}) -> case where_is of
+        There -> Nothing
+        Here -> case which_is of
+          Rock -> Just $ Right There
+          Dirt -> Just Don't
 
 data Result = Result
   { it_is :: Maybe Something

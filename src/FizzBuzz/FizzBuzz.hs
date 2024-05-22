@@ -6,10 +6,12 @@ data FizzBuzz = Fizz | Buzz | FizzBuzz | Value Int deriving (Show)
 
 fizzle :: Int -> FizzBuzz
 fizzle x
-  | x `mod` 3 == 0 && x `mod` 5 == 0 = FizzBuzz
-  | x `mod` 5 == 0 = Buzz
-  | x `mod` 3 == 0 = Fizz
+  | (x % 3 == 0) && (x % 5 == 0) = FizzBuzz
+  | (x % 5 == 0) = Buzz
+  | (x % 3 == 0) = Fizz
   | otherwise = Value x
+  where
+    (%) = mod
 
 data Result
   = Result {iter :: Int, result :: FizzBuzz}
@@ -17,11 +19,11 @@ data Result
 
 run :: Int -> IO ()
 run n = go n 1
- where
-  go 0 _ = pure ()
-  go x acc = do
-    print $ Result{iter = acc, result = fizzle acc}
-    go (x - 1) (acc + 1)
+  where
+    go 0 _ = pure ()
+    go x acc = do
+      print $ Result {iter = acc, result = fizzle acc}
+      go (x - 1) (acc + 1)
 
 test :: IO ()
 test = do
