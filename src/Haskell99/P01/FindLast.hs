@@ -18,35 +18,16 @@ testNum = do
   let
     x = Just 4 :: Maybe Int
     y = Just 3 :: Maybe Int
-    nothing = Nothing :: Maybe Int
+    z = Nothing :: Maybe Int
     someList = [1, 2, 3, 4] :: [Int]
     emptyList = [] :: [Int]
+    makeTest = flip assertBool
     tests =
       TestList
-        [ TestCase
-            ( assertBool
-                (show x ++ " is last of " ++ show someList)
-                (x == findLast someList)
-            )
-        , TestCase
-            ( assertBool
-                (show x ++ " is NOT last of " ++ show someList)
-                (y /= findLast someList)
-            )
-        , TestCase
-            ( assertBool
-                (show nothing ++ " is NOT last of " ++ show someList)
-                (nothing /= findLast someList)
-            )
-        , TestCase
-            ( assertBool
-                (show x ++ " is NOT last of " ++ show emptyList)
-                (x /= findLast emptyList)
-            )
-        , TestCase
-            ( assertBool
-                (show nothing ++ " is last of " ++ show emptyList)
-                (nothing == findLast emptyList)
-            )
+        [ TestCase (makeTest (x == findLast someList) (show x ++ " is last of " ++ show someList))
+        , TestCase (makeTest (y /= findLast someList) (show x ++ " is NOT last of " ++ show someList))
+        , TestCase (makeTest (z /= findLast someList) (show z ++ " is NOT last of " ++ show someList))
+        , TestCase (makeTest (x /= findLast emptyList) (show x ++ " is NOT last of " ++ show emptyList))
+        , TestCase (makeTest (z == findLast emptyList) (show z ++ " is last of " ++ show emptyList))
         ]
   runTestTT tests
