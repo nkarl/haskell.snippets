@@ -17,7 +17,7 @@ class Touchable where
   touch :: Maybe Something -> Maybe Touch
 
 instance Touchable where
-  touch = \something -> do
+  touch something = do
     Something{which_is, where_is} <- something
     case where_is of
       There -> Nothing

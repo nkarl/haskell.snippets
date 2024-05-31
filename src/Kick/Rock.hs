@@ -17,7 +17,7 @@ class Kickable where
   kick :: Maybe Something -> Maybe Kick
 
 instance Kickable where
-  kick = \something ->
+  kick something =
     case something of
       Nothing -> Just Cry
       Just (Something{which_is, where_is}) -> case where_is of

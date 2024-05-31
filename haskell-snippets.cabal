@@ -1,4 +1,4 @@
-cabal-version:      3.0
+cabal-version:      3.4
 -- The cabal-version field refers to the version of the .cabal specification,
 -- and can be different from the cabal-install (the tool) version and the
 -- Cabal (the library) version you are using. As such, the Cabal (the library)
@@ -61,16 +61,23 @@ executable haskell-snippets
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules:    Touch.Grass
-                      Kick.Rock
-                      FizzBuzz.FizzBuzz
-                      Elysia
+    other-modules:
+        Touch.Grass,
+        Kick.Rock,
+        FizzBuzz.FizzBuzz,
+        Elysia,
+        Haskell99.Test,
+        Haskell99.P01.FindLast
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.19.1.0, pretty-simple
+    build-depends:
+        --base ^>=4.19.1.0,
+        base,
+        pretty-simple,
+        HUnit,
 
     -- Directories containing source files.
     hs-source-dirs:   src
