@@ -69,6 +69,7 @@ executable haskell-snippets
         Haskell99.Test,
         Haskell99.P01.FindLast,
         Haskell99.P02.FindButLast,
+        Haskell99.P03.FindkElement,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
