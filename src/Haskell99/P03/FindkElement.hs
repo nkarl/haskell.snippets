@@ -11,8 +11,8 @@ findkElement k ls = go k ls
     | i == 0 = Just x
     | otherwise = go (i - 1) xs
 
-testNum :: IO Counts
-testNum = do
+test :: IO Counts
+test = do
   let
     x = Just 4 :: Maybe Int
     y = Just 3 :: Maybe Int

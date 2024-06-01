@@ -9,8 +9,8 @@ findButLast [] = Nothing
 findButLast [x, _] = Just x
 findButLast (_ : xs) = findButLast xs
 
-testNum :: IO Counts
-testNum = do
+test :: IO Counts
+test = do
   let
     x = Just 3 :: Maybe Int
     y = Just 4 :: Maybe Int

@@ -10,8 +10,8 @@ findLast (x : xs) = Just $ go x xs
   go y [] = y
   go _ (z : zs) = go z zs
 
-testNum :: IO Counts
-testNum = do
+test :: IO Counts
+test = do
   let
     x = Just 4 :: Maybe Int
     y = Just 3 :: Maybe Int
