@@ -71,6 +71,7 @@ executable haskell-snippets
         Haskell99.P02.FindButLast,
         Haskell99.P03.FindkElement,
         Haskell99.P04.ListLength,
+        Haskell99.P05.ReverseList,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

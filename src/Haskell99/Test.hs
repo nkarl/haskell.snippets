@@ -8,6 +8,7 @@ import Haskell99.P01.FindLast
 import Haskell99.P02.FindButLast
 import Haskell99.P03.FindkElement
 import Haskell99.P04.ListLength
+import Haskell99.P05.ReverseList
 
 test :: IO ()
 test = do
@@ -19,4 +20,6 @@ test = do
   _ <- Haskell99.P03.FindkElement.test
   pPrint "P04.ListLength: Integer Lengths of Lists of Integers and Strings"
   _ <- Haskell99.P04.ListLength.test
+  pPrint "P05.ReverseList: Reversed Lists of Integers and Strings"
+  _ <- Haskell99.P05.ReverseList.test
   pure ()
