@@ -10,9 +10,6 @@ findLast (x : xs) = Just $ go x xs
   go y [] = y
   go _ (z : zs) = go z zs
 
-findLastNum :: (Show a, Num a) => [a] -> Maybe a
-findLastNum = findLast
-
 testNum :: IO Counts
 testNum = do
   let
