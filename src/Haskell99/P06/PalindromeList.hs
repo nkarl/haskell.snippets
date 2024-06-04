@@ -47,7 +47,7 @@ test = do
         , TestCase $ makeTest (isPalindrome listInt) (show listInt ++ "should be ")
         , TestCase $ makeTest (isPalindrome listString) (show listString ++ "should be ")
         , TestCase $ makeTest (isPalindrome string) (show string ++ "should be ")
-        , -- using the two-pointer method
+        , {-- using the two-pointer method --}
           TestCase $ makeTest (not $ isPalindromeHalf someListInt) (show someListInt ++ "should NOT be palindrome")
         , TestCase $ makeTest (isPalindromeHalf emptyListInt) (show emptyListInt ++ "should be palindrome")
         , TestCase $ makeTest (not $ isPalindromeHalf someListString) (show someListString ++ "should NOT be palindrome")
