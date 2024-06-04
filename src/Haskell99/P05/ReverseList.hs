@@ -9,6 +9,9 @@ reverse' ls = go ls []
   go [] acc = acc
   go (x : xs) acc = go xs (x : acc)
 
+reverseFoldL :: [a] -> [a]
+reverseFoldL = foldl (flip (:)) []
+
 test :: IO Counts
 test = do
   let
@@ -25,5 +28,9 @@ test = do
         , TestCase $ makeTest (emptyListInt == reverse' emptyListInt) (show emptyListInt ++ " should be reversed")
         , TestCase $ makeTest (someListString == reverse' someListStringRev) (show someListString ++ " should be reverse")
         , TestCase $ makeTest (emptyListString == reverse' emptyListString) (show emptyListString ++ " should be reversed")
+        , TestCase $ makeTest (someListInt == reverseFoldL someListIntRev) (show someListInt ++ " should be reversed")
+        , TestCase $ makeTest (emptyListInt == reverseFoldL emptyListInt) (show emptyListInt ++ " should be reversed")
+        , TestCase $ makeTest (someListString == reverseFoldL someListStringRev) (show someListString ++ " should be reverse")
+        , TestCase $ makeTest (emptyListString == reverseFoldL emptyListString) (show emptyListString ++ " should be reversed")
         ]
   runTestTT tests
