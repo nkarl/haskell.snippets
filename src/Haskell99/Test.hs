@@ -9,6 +9,7 @@ import Haskell99.P02.FindButLast
 import Haskell99.P03.FindkElement
 import Haskell99.P04.ListLength
 import Haskell99.P05.ReverseList
+import Haskell99.P06.PalindromeList
 
 test :: IO ()
 test = do
@@ -22,4 +23,6 @@ test = do
   _ <- Haskell99.P04.ListLength.test
   pPrint "P05.ReverseList: Reversed Lists of Integers and Strings"
   _ <- Haskell99.P05.ReverseList.test
+  pPrint "P06.PalindromeList: A List is a Palindrome or Not"
+  _ <- Haskell99.P06.PalindromeList.test
   pure ()

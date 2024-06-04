@@ -72,6 +72,7 @@ executable haskell-snippets
         Haskell99.P03.FindkElement,
         Haskell99.P04.ListLength,
         Haskell99.P05.ReverseList,
+        Haskell99.P06.PalindromeList,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
