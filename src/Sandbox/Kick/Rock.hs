@@ -1,4 +1,4 @@
-module Kick.Rock where
+module Sandbox.Kick.Rock where
 
 import Text.Pretty.Simple
 import Prelude hiding (Right)

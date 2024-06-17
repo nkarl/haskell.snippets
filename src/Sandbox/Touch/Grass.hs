@@ -1,4 +1,4 @@
-module Touch.Grass where
+module Sandbox.Touch.Grass where
 
 import Text.Pretty.Simple
 import Prelude hiding (Right)

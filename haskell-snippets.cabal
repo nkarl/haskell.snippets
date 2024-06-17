@@ -62,10 +62,10 @@ executable haskell-snippets
 
     -- Modules included in this executable, other than Main.
     other-modules:
-        Touch.Grass,
-        Kick.Rock,
-        FizzBuzz.FizzBuzz,
-        Elysia,
+        Sandbox.Touch.Grass,
+        Sandbox.Kick.Rock,
+        Sandbox.FizzBuzz.FizzBuzz,
+        Sandbox.Elysia.Elysia,
         Haskell99.Test,
         Haskell99.P01.FindLast,
         Haskell99.P02.FindButLast,
@@ -73,6 +73,8 @@ executable haskell-snippets
         Haskell99.P04.ListLength,
         Haskell99.P05.ReverseList,
         Haskell99.P06.PalindromeList,
+        Computation.Chain,
+        Library.Maybe,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

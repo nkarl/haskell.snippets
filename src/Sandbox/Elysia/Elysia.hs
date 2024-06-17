@@ -1,4 +1,4 @@
-module Elysia where
+module Sandbox.Elysia.Elysia where
 
 import Prelude
 

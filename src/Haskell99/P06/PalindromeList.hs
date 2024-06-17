@@ -3,38 +3,38 @@ module Haskell99.P06.PalindromeList where
 import Test.HUnit
 import Prelude
 
-isPalindrome :: (Eq a) => [a] -> Bool
+type BooleanReduce t = t -> Bool
+
+isPalindrome :: (Eq a) => BooleanReduce [a]
 isPalindrome xs = xs == reverse xs
 
-type Reduce t = t -> Bool
-
-isPalindromeA :: (Eq a) => Reduce [a]
+isPalindromeA :: (Eq a) => BooleanReduce [a]
 isPalindromeA = (==) <*> reverse
 
-isPalindromeM :: (Eq a) => Reduce [a]
+isPalindromeM :: (Eq a) => BooleanReduce [a]
 isPalindromeM = reverse >>= (==)
 
 -- NOTE: two pointers with an accumulator (reversed)
-isPalindromeHalf :: (Eq a) => [a] -> Bool
+isPalindromeHalf :: (Eq a) => BooleanReduce [a]
 isPalindromeHalf ls = compare' [] ls ls
  where
-  compare' _ [] _ = True
-  compare' acc xs [] = acc == xs
-  compare' acc (_ : xs) [_] = acc == xs
-  compare' acc (x : xs) (_ : _ : ys) = compare' (x : acc) xs ys
+  compare' _    []        _             = True
+  compare' acc  xs        []            = acc == xs
+  compare' acc  (_ : xs)  [_]           = acc == xs
+  compare' acc  (x : xs)  (_ : _ : ys)  = compare' (x : acc) xs ys
 
 test :: IO Counts
 test = do
   let
-    someListInt = [1, 2, 3, 4] :: [Int]
-    emptyListInt = [] :: [Int]
-    someListString = ["aa", "bb", "cc", ""] :: [String]
-    emptyListString = [] :: [String]
-    someString = "abcde"
-    emptyString = ""
-    listInt = [1, 2, 3, 2, 1] :: [Int]
-    listString = ["aa", "bb", "aa"] :: [String]
-    string = "abcba"
+    someListInt     = [1, 2, 3, 4]            :: [Int]
+    emptyListInt    = []                      :: [Int]
+    listInt         = [1, 2, 1]               :: [Int]
+    someListString  = ["aa", "bb", "cc", ""]  :: [String]
+    emptyListString = []                      :: [String]
+    listString      = ["aa", "bb", "aa"]      :: [String]
+    someString      = "abcde"
+    emptyString     = ""
+    string          = "aba"
     makeTest = flip assertBool
     tests =
       TestList

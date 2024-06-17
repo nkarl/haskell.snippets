@@ -2,7 +2,7 @@
 
 {-# HLINT ignore "Redundant bracket" #-}
 
-module FizzBuzz.FizzBuzz where
+module Sandbox.FizzBuzz.FizzBuzz where
 
 import Prelude
 
