@@ -75,6 +75,7 @@ executable haskell-snippets
         Haskell99.P06.PalindromeList,
         Computation.Chain,
         Library.Maybe,
+        MooreMachine.Unit,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
