@@ -10,6 +10,13 @@ import Prelude
 
 import Text.Pretty.Simple (pPrint)
 
+{--
+ - NOTE: TECHNICAL HURDLES
+ - 1. How to make a DAG in Haskell?
+ -  - [ ] learn how to implement a tree (binary tree) first
+ - 2. How should the forward and reverse actions be done?
+--}
+
 data Unary = Id | Neg deriving (Show)
 data Binary = Add | Mul deriving (Show)
 data Op = Unary Unary | Binary Binary deriving (Show)

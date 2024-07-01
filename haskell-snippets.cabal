@@ -74,8 +74,12 @@ executable haskell-snippets
         Haskell99.P05.ReverseList,
         Haskell99.P06.PalindromeList,
         Computation.Chain,
+        Library.Test,
         Library.Maybe,
+        Library.Foldable,
+        Library.Traversable,
         MooreMachine.Unit,
+        Sandbox.Trees.Binary,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -86,6 +90,7 @@ executable haskell-snippets
         base,
         pretty-simple,
         HUnit,
+        random,
 
     -- Directories containing source files.
     hs-source-dirs:   src
