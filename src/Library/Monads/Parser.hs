@@ -1,3 +1,4 @@
+{-# LANGUAGE MonoLocalBinds #-}
 module Library.Monads.Parser where
 
 -- import Control.Applicative (Alternative, empty, (<|>))

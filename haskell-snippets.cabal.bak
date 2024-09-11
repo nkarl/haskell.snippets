@@ -1,4 +1,4 @@
-cabal-version:      3.0
+cabal-version:      3.4
 -- The cabal-version field refers to the version of the .cabal specification,
 -- and can be different from the cabal-install (the tool) version and the
 -- Cabal (the library) version you are using. As such, the Cabal (the library)
@@ -35,7 +35,7 @@ license:            MIT
 license-file:       LICENSE
 
 -- The package author(s).
-author:             nkarl
+author:             Charles Nguyen
 
 -- An email address to which users can send suggestions, bug reports, and patches.
 maintainer:         21993921+nkarl@users.noreply.github.com
@@ -62,6 +62,10 @@ executable haskell-snippets
 
     -- Modules included in this executable, other than Main.
     other-modules:
+        Sandbox.Touch.Grass,
+        Sandbox.Kick.Rock,
+        Sandbox.FizzBuzz.FizzBuzz,
+        Sandbox.Elysia.Elysia,
         Haskell99.Test,
         Haskell99.P01.FindLast,
         Haskell99.P02.FindButLast,
@@ -69,27 +73,23 @@ executable haskell-snippets
         Haskell99.P04.ListLength,
         Haskell99.P05.ReverseList,
         Haskell99.P06.PalindromeList,
+        Computation.Chain,
         Library.Test,
         Library.Maybe,
         Library.Foldable,
         Library.Traversable,
         Library.Monads.Writer,
         Library.Monads.Parser,
-        Library.MooreMachine.Unit,
-        Sandbox.Touch.Grass,
-        Sandbox.Kick.Rock,
-        Sandbox.FizzBuzz.FizzBuzz,
-        Sandbox.Elysia.Elysia,
+        MooreMachine.Unit,
         Sandbox.Trees.Binary,
-        Sandbox.Computation.Chain,
-        Sandbox.FileSystem.IOActions,
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
     build-depends:
-        base ^>=4.18.2.0,
+        --base ^>=4.19.1.0,
+        base,
         pretty-simple,
         HUnit,
         random,
