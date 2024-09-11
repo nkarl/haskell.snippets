@@ -1,7 +1,7 @@
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE StarIsType #-}
 
-module Computation.Chain where
+module Sandbox.Computation.Chain where
 
 import Control.Applicative ((<|>))
 import GHC.Base (List)

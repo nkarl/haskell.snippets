@@ -46,7 +46,7 @@ instance Join' Maybe where
 instance Monad Maybe where
   (>>=) = bind
 
-infixl 4 <.>;
+infixl 4 <.>
 (<.>) :: (Applicative m) => m a -> m (a -> b) -> m b
 (<.>) = flip (<*>)
 

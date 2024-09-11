@@ -5,6 +5,13 @@ module Sandbox.Trees.Binary where
 import System.Random (randomRIO)
 import Prelude
 
+{--
+ - A data type called `Tree` with 2 data constructors,
+ - the second contains 2 recursive constructor calls.
+ - NOTE: rule of thumb: for every data type,
+    - each of its cases must be accounted for, and
+    - all recursive constructor calls must be accounted for.
+--}
 data Tree a
   = Empty
   | Node a (Tree a) (Tree a)
@@ -13,19 +20,19 @@ data Tree a
 -- | insert a node into the tree.
 growNode :: (Ord a) => a -> Tree a -> Tree a
 growNode x Empty = Node x Empty Empty
-growNode x (Node root left right)
-  | x == root = Node root left right
-  | x < root  = Node root (growNode x left) right
-  | x > root  = Node root left (growNode x right)
+growNode x (Node v left right)
+  | x == v = Node v left right
+  | x < v  = Node v (growNode x left) right
+  | x > v  = Node v left (growNode x right)
   | otherwise = Empty
 
 -- | check if a value is a tree node.
 isTreeNode :: (Ord a) => a -> Tree a -> Bool
 isTreeNode _ Empty = False
-isTreeNode x (Node root left right)
-  | x == root = True
-  | x < root  = isTreeNode x left
-  | x > root  = isTreeNode x right
+isTreeNode x (Node v left right)
+  | x == v = True
+  | x < v  = isTreeNode x left
+  | x > v  = isTreeNode x right
   | otherwise = False
 
 -- | measure the tree's height.
@@ -45,19 +52,19 @@ instance (Show a) => Show (Tree a) where
 
 show' :: (Show a) => Tree a -> Int -> Int -> String
 show' Empty _ _ = ""
-show' (Node root left right) depth width = offset_r ++ "\n" ++ offset_c ++ offset_l
+show' (Node v left right) depth width = offset_r <> "\n" <> offset_c <> offset_l
  where
-  offset_c = replicate depth ' ' ++ show root
+  offset_c = replicate depth ' ' <> show v
   offset_l = show' left (depth + width) width
   offset_r = show' right (depth + width) width
 
 widestElem :: (Show a) => Tree a -> Int
 widestElem Empty = 0
-widestElem (Node root left right) = maximum [l, r, c]
+widestElem (Node v left right) = maximum [l, r, c]
  where
   l = widestElem left
   r = widestElem right
-  c = length $ show root
+  c = length $ show v
 
 makeTree :: (Ord a) => [a] -> Tree a
 makeTree = foldr growNode Empty . reverse
@@ -78,4 +85,7 @@ randomList n
 
 test :: IO ()
 test = do
-  print "placeholder"
+  let
+    nums = [6, 4, 3, 5, 7, 1, 9] :: [Int]
+    t = makeTree nums
+  print t
