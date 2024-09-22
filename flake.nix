@@ -8,65 +8,71 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, haskellNix, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachDefaultSystem
+      (system:
 
-    let
-      overlays = [
-        haskellNix.overlay (final: prev: {
-          haskell-snippets = final.haskell-nix.project' {
-            src = ./.;
-            compiler-nix-name = "ghc966";
+        let
+          overlays = [
+            haskellNix.overlay
+            (final: prev: {
+              haskell-snippets = final.haskell-nix.project' {
+                src = ./.;
+                compiler-nix-name = "ghc966";
 
-            shell.tools = {
-              cabal = {};
-              hlint = {};
-              stack = "3.1.1";
-              haskell-language-server = {};
-            };
+                shell.tools = {
+                  cabal = { };
+                  hlint = { };
+                  stack = "3.1.1";
+                  haskell-language-server = { };
+                };
 
-            shell.buildInputs = with pkgs; [
-              nixpkgs-fmt
-            ];
-          };
-        })
-      ];
+                shell.buildInputs = with pkgs; [
+                  nixpkgs-fmt
+                ];
+              };
+            })
+          ];
 
-      pkgs = import nixpkgs { inherit system overlays; inherit (haskellNix) config; };
+          pkgs = import nixpkgs { inherit system overlays; inherit (haskellNix) config; };
 
-      flake = pkgs.haskell-snippets.flake { };
+          flake = pkgs.haskell-snippets.flake { };
 
-    in
-      flake // { packages.default = flake.packages."snippets:exe:snippets"; });
-}      
+        in
+        flake // {
+          packages.default = flake.packages."snippets:exe:snippets";
+        }) // {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    };
+}
 
 #{
-  #description = "A Nix flake for Haskell development environment";
+#description = "A Nix flake for Haskell development environment";
 
-  #inputs = {
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  #};
+#inputs = {
+#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+#};
 
-  #outputs = { self, nixpkgs, ... }: let
-    
-    #system = "x86_64-linux";
+#outputs = { self, nixpkgs, ... }: let
 
-  #in {
-    #devShells."${system}".default = let
-      #pkgs = import nixpkgs {
-        #inherit system;
-      #};
+#system = "x86_64-linux";
 
-    #in pkgs.mkShell {
-      #packages = with pkgs; [
-        #cabal-install
-        #stack
-        #haskell.compiler.ghc8107
-        #haskell-language-server
-      #];
+#in {
+#devShells."${system}".default = let
+#pkgs = import nixpkgs {
+#inherit system;
+#};
 
-      #shellHook = ''
-        #echo "ghc `${pkgs.haskell.compiler.ghc8107}/bin/ghc --version`"
-      #'';
-    #};
-  #};
+#in pkgs.mkShell {
+#packages = with pkgs; [
+#cabal-install
+#stack
+#haskell.compiler.ghc8107
+#haskell-language-server
+#];
+
+#shellHook = ''
+#echo "ghc `${pkgs.haskell.compiler.ghc8107}/bin/ghc --version`"
+#'';
+#};
+#};
 #}
