@@ -2,19 +2,18 @@
 
 module Library.Monads.Parser where
 
--- import Control.Applicative (Alternative, empty, (<|>))
+import Control.Applicative (Alternative, (<|>))
 
 import Data.Foldable ()
 import Data.Kind (Type)
 import Data.List (uncons)
-import GHC.Base (Alternative, (<|>))
 import GHC.Unicode (isAlpha, isDigit)
 import Text.Printf (IsChar (fromChar))
 import Prelude
 
 type State a = (String, a)
 
-type Action e a = (Failable e) => String -> Either e (State a)
+type Action e a = (Failing e) => String -> Either e (State a)
 
 newtype ParseM e a = ParseM (Action e a)
 
@@ -23,11 +22,11 @@ data ErrorMsg
   | InvalidChar String
   deriving (Show)
 
-class Failable (e :: Type) where
+class Failing (e :: Type) where
   eof :: e
   invalidSymbol :: String -> e
 
-instance Failable ErrorMsg where
+instance Failing ErrorMsg where
   eof = EOF
   invalidSymbol = InvalidChar
 
@@ -82,35 +81,35 @@ unwrap (ParseM f) = f
 parse :: ParseM ErrorMsg a -> Action ErrorMsg a
 parse = unwrap
 
-failedParsing :: forall e a. (Failable e) => e -> ParseM e a
+failedParsing :: forall e a. (Failing e) => e -> ParseM e a
 failedParsing e = ParseM $ \_ -> Left e
 
-satisfy :: forall e. (Failable e) => (Char -> Bool) -> String -> ParseM e Char
+satisfy :: forall e. (Failing e) => (Char -> Bool) -> String -> ParseM e Char
 satisfy predicate reason =
   char >>= \c ->
     if predicate c
       then pure c
       else failedParsing $ invalidSymbol reason -- Left $ invalidSymbol expected
 
-digit :: forall e. (Failable e) => ParseM e Char
+digit :: forall e. (Failing e) => ParseM e Char
 digit = satisfy (isDigit . fromChar) "is not a digit."
 
-letter :: forall e. (Failable e) => ParseM e Char
+letter :: forall e. (Failing e) => ParseM e Char
 letter = satisfy (isAlpha . fromChar) "is not a letter."
 
--- alphaNum :: forall e. (Failable e) => ParseM e Char
+-- alphaNum :: forall e. (Failing e) => ParseM e Char
 -- alphaNum = ParseM $ \s -> case (parse letter s :: Either ErrorMsg (State Char)) of
--- Right x -> Right x
--- Left _ -> case unwrap digit s of
--- Left err -> Left err
--- Right y -> Right y
+--    Right x -> Right x
+--    Left _ -> case unwrap digit s of
+--        Left err -> Left err
+--        Right y -> Right y
 instance Alternative (ParseM e) where
   (<|>) p1 p2 =
     ParseM $ \s -> case unwrap p1 s of
       Left _ -> unwrap p2 s
       Right x -> Right x
 
-alphaNum :: forall e. (Failable e) => ParseM e Char
+alphaNum :: forall e. (Failing e) => ParseM e Char
 alphaNum = letter <|> digit <|> failedParsing (invalidSymbol "is not an alphaNumeral.")
 
 -- count :: (Traversable f) => (Foldable f) => Int -> ParseM e a -> ParseM e (f a)

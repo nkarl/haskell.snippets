@@ -29,3 +29,8 @@ cabal.project.local~
 # End of https://www.toptal.com/developers/gitignore/api/haskell
 
 **/tags
+
+stack.yaml.lock
+
+# Nix
+flake.lock
