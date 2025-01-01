@@ -16,7 +16,7 @@ main = do
   -- Haskell99.Test.test
   -- Computation.Chain.test
   -- MooreMachine.Unit.test
-  -- Sandbox.Trees.Binary.test
-  Library.Test.runTests
+  Sandbox.Trees.Binary.test
+  --Library.Test.runTests
   -- MooreMachine.Unit.test
-  Sandbox.FileSystem.IOActions.test
+  --Sandbox.FileSystem.IOActions.test
