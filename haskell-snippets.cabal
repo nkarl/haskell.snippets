@@ -81,6 +81,8 @@ executable haskell-snippets
         Sandbox.FizzBuzz.FizzBuzz,
         Sandbox.Elysia.Elysia,
         Sandbox.Trees.Binary,
+        Sandbox.Trees.BinaryRewrite,
+        Sandbox.Trees.BinaryMaybe,
         Sandbox.Computation.Chain,
         Sandbox.FileSystem.IOActions,
 

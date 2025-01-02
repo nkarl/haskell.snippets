@@ -18,16 +18,7 @@ import Prelude
 data Tree a
   = Empty
   | Node a (Tree a) (Tree a)
-  deriving (Read, Eq)
-
--- | insert a node into the tree. the tree is always ordered.
-insertNode :: forall a. (Ord a) => a -> Tree a -> Tree a
-insertNode a Empty = Node a Empty Empty
-insertNode a (Node key left right)
-  | a == key  = Node key left                 right
-  | a <  key  = Node key (insertNode a left)  right
-  | a >  key  = Node key left                 (insertNode a right)
-  | otherwise = Empty
+  deriving (Eq)
 
 -- | check if a value exists inside the tree.
 hasNode :: forall a. (Ord a) => a -> Tree a -> Bool
@@ -37,6 +28,15 @@ hasNode a (Node key left right)
   | a >  key  = hasNode a right
   | a <  key  = hasNode a left
   | otherwise = False
+
+-- | insert a node into the tree. the tree is always ordered.
+insertNode :: forall a. (Ord a) => a -> Tree a -> Tree a
+insertNode a Empty = Node a Empty Empty
+insertNode a (Node key left right)
+  | a == key  = Node key left                 right
+  | a <  key  = Node key (insertNode a left)  right
+  | a >  key  = Node key left                 (insertNode a right)
+  | otherwise = Empty
 
 -- | measure the tree's hasHeight.
 hasHeight :: forall a. Tree a -> Int
