@@ -4,13 +4,29 @@ import Test.HUnit
 
 reverse' :: [a] -> [a]
 reverse' [] = []
-reverse' ls = go ls []
+reverse' xs = go xs []
  where
   go [] acc = acc
-  go (x : xs) acc = go xs (x : acc)
+  go (y : ys) acc = go ys (y : acc)
 
+-- foldl (flip (:)) mempty "abcdefg" >>> "gfedcba"
+-- (flip (:)) mempty 'a'
 reverseFoldL :: [a] -> [a]
 reverseFoldL = foldl (flip (:)) []
+
+data StateQ a = StateQ
+  { remained :: [a]
+  , reversed :: [a]
+  }
+  deriving (Show)
+
+-- the same as `foldl`
+rev :: forall a. (Show a) => StateQ a -> IO [a]
+rev t@(StateQ{remained, reversed}) = case remained of
+  [] -> pure reversed
+  (x : xs) -> do
+    _ <- print t
+    rev t{remained = xs, reversed = x : reversed}
 
 test :: IO Counts
 test = do

@@ -2,7 +2,7 @@
 
 module Library.Monads.Parser where
 
-import Control.Applicative (Alternative, (<|>))
+import Control.Applicative (Alternative, (<|>), empty)
 
 import Data.Foldable ()
 import Data.Kind (Type)
@@ -20,6 +20,7 @@ newtype ParseM e a = ParseM (Action e a)
 data ErrorMsg
   = EOF
   | InvalidChar String
+  | Other String
   deriving (Show)
 
 class Failing (e :: Type) where
@@ -103,13 +104,14 @@ letter = satisfy (isAlpha . fromChar) "is not a letter."
 --    Left _ -> case unwrap digit s of
 --        Left err -> Left err
 --        Right y -> Right y
-instance Alternative (ParseM e) where
+instance Alternative (ParseM ErrorMsg) where
+  empty = ParseM $ \s -> Left $ Other s
   (<|>) p1 p2 =
     ParseM $ \s -> case unwrap p1 s of
       Left _ -> unwrap p2 s
       Right x -> Right x
 
-alphaNum :: forall e. (Failing e) => ParseM e Char
+alphaNum :: (Failing ErrorMsg) => ParseM ErrorMsg Char
 alphaNum = letter <|> digit <|> failedParsing (invalidSymbol "is not an alphaNumeral.")
 
 -- count :: (Traversable f) => (Foldable f) => Int -> ParseM e a -> ParseM e (f a)
